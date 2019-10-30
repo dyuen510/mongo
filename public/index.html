@@ -18,6 +18,19 @@
             background-attachment: fixed;
         }
 
+        #submit {
+            background-color: #56baed;
+            border: none;
+            color: white;
+            padding: 15px 80px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 13px;
+            -webkit-border-radius: 10px 10px 10px 10px;
+        }
+
         h1 {
             font-size: 70px;
             margin: 20px;
@@ -27,7 +40,7 @@
             font-weight: bold;
             display: inline-block;
             border-bottom: 2px solid black;
-            bottom:-7px;
+            bottom: -7px;
         }
 
         #content {
@@ -43,13 +56,16 @@
             width: 50%;
             margin-left: 25%;
             margin-top: 5%;
-            padding:5px;
-            border-radius:30px;
-            text-align:center;
+            padding: 5px;
+            border-radius: 30px;
+            text-align: center;
         }
 
         #row {
             background-color: none;
+        }
+        textarea{
+            margin-left:50px;
         }
     </style>
 </head>
@@ -63,11 +79,12 @@
     </div>
 
     <div id='row'>
-
+        <form id = 'target' method = 'POST'>
         <div id='content'>
 
 
         </div>
+    </form>
     </div>
     </div>
 
@@ -78,6 +95,7 @@
         // alert('hello')
         function displayContent() {
             // $('ul').empty();
+            // var comment = $('.comment').val();
             $.ajax({
                 url: '/all',
                 method: 'GET'
@@ -87,19 +105,53 @@
                     var li = $('<p>');
                     var p = $('<a href>');
                     var sum = $('<p>');
-                    var img = $('<img>')
+                    var img = $('<img>');
+                    var comment = $('<textarea class ="form-control"' + 'name = input' + 'id = content>').width(500).height(50);
+                    var button = $('<input type = submit' + ' id = submit>');
                     li.text('Title: ' + res[i].title);
                     p.text(res[i].link);
                     sum.text('Summary: ' + res[i].summary);
-                    img.attr('src' + res[i].img);
-                    newDiv.append(li, p, sum, img);
-                    console.log(newDiv);
+                    img.attr('src', res[i].img).width(400).height(300);
+                    newDiv.append(li, p, sum, img, comment, button);
+                    // console.log(newDiv);
                     $('#content').append(newDiv);
                 }
             })
         }
+
+        // function doComment(form){
+        //     var formData = {
+        //         comment: form.input.value
+        //     };
+        //     $.ajax({
+        //         url:'do-Comment',
+        //         method: 'POST',
+        //         data: formData,
+        //         success: function(response){
+        //             formData._id = response._id;
+        //             socket.emit('new_comment', formData);
+        //             alert(response.text);
+        //         }
+        //     })
+        // }
+    //     $('#submit').on('click',function(){
+
+    //     var comments = $('#input').val();
+    //     $.ajax({
+    //         type : 'POST',
+    //         url: $(this).attr('action'),
+    //         data:$(this).serialize(),
+    //         success: function(data){
+    //             $('#content').append('</br>' + comment);
+    //         }
+    //     })
+    // })
+
+
         // $.ajax({url: '/addcomment', method: 'POST', data: {comment: 'this is a great article'}})
         //     .then(....)
+
+        // var form = $('<form action = "/comments"' + 'method = POST>'); not sure if this works
     </script>
 
 
