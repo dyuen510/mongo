@@ -111,9 +111,12 @@ app.get('/scrape', function (req, res) {
     })
     res.send('Scraped completed!');
 })
+var port = process.env.PORT || 8080;
 
-
+var server = app.listen(port,function(){
+    console.log("App running on port 8080");
+})
 // Listen on port 3000
-app.listen(3000, function () {
-    console.log("App running on port 3000!");
-});
+// app.listen(3000, function () {
+//     console.log("App running on port 3000!");
+// });
