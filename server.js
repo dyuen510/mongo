@@ -32,6 +32,10 @@ db.on("error", function (error) {
 //     res.send("Hello world");
 // });
 
+app.get('/', function(req, res){
+    res.json(path.join(__dirname, "public/index.html"));
+})
+
 // Retrieve data from the db
 app.get("/all", function (req, res) {
     // Find all results from the scrapedData collection in the db
@@ -124,10 +128,10 @@ app.get('/scrape', function (req, res) {
     })
     res.send('Scraped completed!');
 })
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 var server = app.listen(port,function(){
-    console.log("App running on port 8080");
+    console.log("App running on port 3000");
 })
 // Listen on port 3000
 // app.listen(3000, function () {
