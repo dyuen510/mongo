@@ -4,6 +4,7 @@ var mongojs = require("mongojs");
 // Require axios and cheerio. This makes the scraping possible
 var axios = require("axios");
 var cheerio = require("cheerio");
+var url = 'mongodb://localhost:8080/scraper'
 
 // Initialize Express
 var app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended:true
 }))
+
 
 // Database configuration
 var databaseUrl = "scraper";
@@ -45,31 +47,42 @@ app.get("/all", function (req, res) {
     });
 });
 
-//retrieve comments from db 
-// app.post('/comments', function(req,res){
-//     db.comments.find(req.param('_id'),{
-//         comments:req.param('input')
-//     }, function(error,res){
-//         res.redirect('/' + req.param('_id'))
-//     })
-// })
+// Retrieve data from the db
+app.get("/comments", function (req, res) {
+    // Find all results from the scrapedData collection in the db
+    db.comments.find({}, function (error, found) {
+        // Throw any errors to the console
+        if (error) {
+            console.log(error);
+        }
+        // If there are no errors, send the data to the browser as json
+        else {
+            res.json(found);
+        }
+    });
+});
 
-// app.post('/do-comment', function(req,res){
-//     var comment_id = ObjectID();
-//     scraper.collection('posts').update({'_id': ObjectId(req.body.post_id)}
-//     ,{
-//         $push: {
-//             'comments': {_id:comment_id, comment: req.body.comment}
-//         }
-//     },function(error,post){
-//         res.send({
-//             text:'comment successful',
-//             _id:post.insertedId
-//         })
-//     }
-//     )
-// })
-
+app.post('/insert', function(req,res){
+    console.log(req.body);
+    var array = [];
+    var noArray = [];
+    var userComment = req.body.commentid;
+    for (var i=0; i<userComment.length; i++){
+        if(userComment[i] != ''){
+            array.push(userComment[i]);
+        }
+    }
+        console.log(array);
+        var data = {
+            'comment' : array
+        }
+        db.collection('comments').insertOne(data, function(error,collection){
+            if(error) throw error;
+            console.log('recorded successfully');
+        })
+        res.redirect('/');
+        
+    })
 
 app.get('/scrape', function (req, res) {
     axios.get('https://www.enn.com').then(function (response) {

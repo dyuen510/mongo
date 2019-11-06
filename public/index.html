@@ -67,6 +67,23 @@
         textarea{
             margin-left:50px;
         }
+
+        #comments{
+            background-color:white;
+            margin:0;
+            padding:0;
+            width:20%;
+            float:right;
+            opacity:0.7;
+            border-radius:25px;
+        }
+
+        #commentTitle{
+            font-size:20px;
+            text-align:center;
+
+
+        }
     </style>
 </head>
 
@@ -79,7 +96,12 @@
     </div>
 
     <div id='row'>
-        <form id = 'target' method = 'POST'>
+        <div id='comments'>
+            <p id=commentTitle>
+                Comments
+            </p>
+        </div>
+        <form action = '/insert' id = 'target' method = 'POST'>
         <div id='content'>
 
 
@@ -92,6 +114,7 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
         displayContent();
+        displayComments();
         // alert('hello')
         function displayContent() {
             // $('ul').empty();
@@ -106,7 +129,7 @@
                     var p = $('<a href>');
                     var sum = $('<p>');
                     var img = $('<img>');
-                    var comment = $('<textarea class ="form-control"' + 'name = input' + 'id = content>').width(500).height(50);
+                    var comment = $('<textarea class ="form-control"' + 'name = comment' + 'id = content>').width(500).height(50);
                     var button = $('<input type = submit' + ' id = submit>');
                     li.text('Title: ' + res[i].title);
                     p.text(res[i].link);
@@ -118,6 +141,22 @@
                 }
             })
         }
+            function displayComments(){
+                $.ajax({
+                    url:'/comments',
+                    method:'GET'
+                }).then(function(res){
+                    for(var i = 0; i<res.length;i++){
+                    // var newComment = $('<div>').addClass('comments')
+                    var id =$('<p>');
+                    var con = $('<p>');
+                    id.text(res[i]._id);
+                    con.text(res[i].comment);
+                    $('#comments').append(id,con);
+                    }
+                })
+            
+            }
 
         // function doComment(form){
         //     var formData = {
@@ -146,6 +185,8 @@
     //         }
     //     })
     // })
+
+
 
 
         // $.ajax({url: '/addcomment', method: 'POST', data: {comment: 'this is a great article'}})
