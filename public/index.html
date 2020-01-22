@@ -53,7 +53,7 @@
 
         .content {
             background-color: white;
-            width: 50%;
+            width: 55%;
             margin-left: 25%;
             margin-top: 5%;
             padding: 5px;
@@ -63,9 +63,6 @@
 
         #row {
             background-color: none;
-        }
-        textarea{
-            margin-left:50px;
         }
 
         #comments{
@@ -81,8 +78,10 @@
         #commentTitle{
             font-size:20px;
             text-align:center;
+        }
 
-
+        textarea{
+            margin-left:35px;
         }
     </style>
 </head>
@@ -129,7 +128,7 @@
                     var p = $('<a href>');
                     var sum = $('<p>');
                     var img = $('<img>');
-                    var comment = $('<textarea class ="form-control"' + 'name = comment' + 'id = content>').width(500).height(50);
+                    var comment = $('<textarea class ="form-control"' + 'name = comment' + 'id = content>').width(400).height(50);
                     var button = $('<input type = submit' + ' id = submit>');
                     li.text('Title: ' + res[i].title);
                     p.text(res[i].link);
@@ -158,41 +157,6 @@
             
             }
 
-        // function doComment(form){
-        //     var formData = {
-        //         comment: form.input.value
-        //     };
-        //     $.ajax({
-        //         url:'do-Comment',
-        //         method: 'POST',
-        //         data: formData,
-        //         success: function(response){
-        //             formData._id = response._id;
-        //             socket.emit('new_comment', formData);
-        //             alert(response.text);
-        //         }
-        //     })
-        // }
-    //     $('#submit').on('click',function(){
-
-    //     var comments = $('#input').val();
-    //     $.ajax({
-    //         type : 'POST',
-    //         url: $(this).attr('action'),
-    //         data:$(this).serialize(),
-    //         success: function(data){
-    //             $('#content').append('</br>' + comment);
-    //         }
-    //     })
-    // })
-
-
-
-
-        // $.ajax({url: '/addcomment', method: 'POST', data: {comment: 'this is a great article'}})
-        //     .then(....)
-
-        // var form = $('<form action = "/comments"' + 'method = POST>'); not sure if this works
     </script>
 
 

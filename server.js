@@ -51,6 +51,17 @@ app.get("/all", function (req, res) {
     });
 });
 
+
+//REACT
+// component did mount connects to the data for heroku
+//componentDidMount(){
+    //fetch('/api/all,{
+        //method: 'GET'
+    // })
+    // .then(r => r.json())
+    // .then(r => console.log(r)) // same thing as (result) => {consoel.log(result)}
+// }
+
 // Retrieve data from the db
 app.get("/comments", function (req, res) {
     // Find all results from the scrapedData collection in the db
